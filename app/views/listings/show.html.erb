@@ -1,0 +1,27 @@
+<div class="row">
+	<div class="col-md-6" > 
+        <%= image_tag @listing.image.url(:medium) %>
+    	<h3><%= @listing.name %></h3>
+        <p><%= @listing.category.name %></p>
+        <br>
+        <% if @listing.category.id == 8 %>
+        <% else %>
+        	<% if @listing.price == 0%>
+        		<p>Free</p>
+        	<% else %>	
+        		<p><%= number_to_currency(@listing.price) %></p>
+        	<% end %>
+        <% end %>
+        <br>
+    	<p><%= @listing.description %></p><br>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+        <% if current_user == @listing.user %>
+          <%= link_to 'Edit', edit_listing_path(@listing), class: "btn btn-default btn-sm" %> |
+        <% end %>
+		<%= link_to 'Back', listings_path, class: "btn btn-default btn-sm" %>
+	</div>
+</div>

@@ -1,0 +1,101 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Gunnison Marketplace</a>
+    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Catagories <span class="caret"></span></a>
+	          <ul class="dropdown-menu">
+	            <li><a href="real_estate">Real Estate</a></li>
+	            <li><a href="for_rent">Housing</a></li>
+	            <li><a href="household">Household Items</a></li>
+	            <li><a href="electronics">Electronics</a></li>
+	            <li><a href="sporting_goods">Sporting Goods</a></li>
+	            <li><a href="employment">Employment</a></li>
+	            <li><a href="motorized">Motorized</a></li>
+	            <li><a href="automotive">Automotive</a></li>
+	            <li><a href="ranching">Ranching</a></li>
+	            <li><a href="fire_wood">Fire Wood</a></li>
+	            <li><a href="wanted">Wanted</a></li>
+	            <li role="separator" class="divider"></li>
+	            <li><a href="lost_found">Lost & Found</a></li>
+	            <li role="separator" class="divider"></li>
+	            <li><a href="pets">Pets</a></li>
+	          </ul>
+	        </li>
+	      	<% if user_signed_in? %>
+	      	<li> <%= link_to "New Listing", new_listing_path %> </li>
+	      	<% else %>
+	      		<li><a data-toggle="modal" data-target="#loginmodal">New Listing</a></li>
+	      	<% end %>
+	      </ul>
+	        
+
+	      <ul class="nav navbar-nav navbar-right">
+	       	  <% if user_signed_in? %>
+			      <li class="dropdown">
+			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+			          	<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+			          	Account 
+			          	<span class="caret"></span></a>
+			          <ul class="dropdown-menu">
+			          	<% if user_signed_in? %>
+			          	    <li><%= link_to "Manage Listings", seller_path %></li>
+			            	<li><%= link_to "Edit Profile", edit_user_registration_path %></li>
+			            	<li role="separator" class="divider"></li>
+			            	<li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li> 
+			            <% else %>
+			          	  <li><a href="/users/sign_up">Sign Up</a></li>
+			          	  <li role="separator" class="divider"></li>
+			          	  <li><a href="/users/sign_in">Sign In</a></li>
+			          	<% end %>  
+			          </ul>
+			      </li>
+		      <% else %>
+		      	<li><a data-toggle="modal" data-target="#signupmodal">Sign Up</a></li>
+		      	<li><a data-toggle="modal" data-target="#loginmodal">Sign In</a></li>
+		      <% end %>
+	      </ul>
+	    </div>
+	</div>
+</nav>
+
+
+<div class="modal" id="loginmodal">
+ 	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<%= render "devise/sessions/new" %>
+			</div>
+		</div> 
+	</div>
+</div>
+<div class="modal" id="signupmodal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<%= render "devise/registrations/new" %>
+			</div>
+		</div> 
+	</div>
+</div>
+<div class="modal" id="pleasesigninmodal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				<p>You must sign in to make a new listing </p>
+			</div>
+		</div> 
+	</div>
+</div>

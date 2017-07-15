@@ -1,0 +1,69 @@
+<%= form_for @listing, html: { multipart: true } do |f| %>
+  <% if @listing.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <h4><%= pluralize(@listing.errors.count, "error") %> prohibited this listing from being saved:</h4>
+
+      <ul>
+      <% @listing.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :Image %>
+        <%= f.file_field :image, class: "form-control " %>
+      </div>
+      <div>
+        <%= f.label :Title %>
+        <%= f.text_field :name, :placeholder => "A little something to catch the user's eye", class: "form-control", autofocus: true %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, :placeholder => "This will display when a user clicks on your ad, it will not display on the main page. Please keep price out of the title and discription.
+        ", :rows => 10, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <div class="form-group">
+        <% if @listing.category_id == 11%>
+        <%= f.label :price %>
+        <div class="input-group">
+          <div class="input-group-addon">
+            $
+          </div>
+          <%= f.text_field :price, class: "form-control" %> <p>Per Month</p> 
+        </div>
+        <% else %>
+        <%= f.label :price %>
+        <div class="input-group">
+          <div class="input-group-addon">
+            $
+          </div>
+          <%= f.text_field :price, :placeholder => "ex: 1,200", class: "form-control" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <%= f.collection_select :category_id, Category.all, :id, :name, {prompt: "Choose a Category"} %>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

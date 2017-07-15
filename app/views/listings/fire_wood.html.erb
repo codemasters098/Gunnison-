@@ -1,0 +1,43 @@
+
+<div class="jumbotron">
+  <h1>Fire Wood</h1>
+</div>
+ 
+<br>
+<h1>Fire Wood for Sale</h1>
+
+<div class="row">
+  <% @listings.each do |listing| %>
+    <div class="col-md-3">
+      <div class="thumbnail">
+        <div class="caption">
+
+          <h3><%=h truncate(listing.name, :length => 45) %></h3>
+        <% if listing.category.id == 8 %>
+          <p>Lost & Found</p>
+        <% else %>
+          <% if listing.price == 0%>
+            <p>Free</p>
+          <% else %>  
+            <p><%= number_to_currency(listing.price) %></p>
+          <% end %>
+        <% end %>
+        <% if listing.category.id == 8 %>
+          <p><%= "Contact #{listing.user.name}" %></p>
+        <% else %>
+          <p><%= "Sold by #{listing.user.name}" %></p>
+        <% end %>
+          <%= link_to 'View', listing, class: "btn btn-default btn-sm" %>
+          <% if (user_signed_in?) && (current_user == listing.user) %>
+           <%= link_to 'Edit', edit_listing_path(listing), class: "btn btn-default btn-sm" %>
+           <%= link_to 'Delete', listing, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default btn-sm" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+</div>
+<br>
+<br>
+
